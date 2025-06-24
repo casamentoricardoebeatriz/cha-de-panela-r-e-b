@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Chá de Panela Ricardo & Beatriz - Lista de Presentes</title>
+  <title>Chá de Panela - Lista de Presentes</title>
   <style>
     body { font-family: sans-serif; background: #f0f8ff; padding: 20px; color: #333; }
     h1, h2 { color: #004080; }
@@ -65,55 +64,50 @@
   </style>
 </head>
 <body>
-  <h1>Lista de Presentes - Chá de Panela: Ricardo & Beatriz</h1>
-
+  <h1>Lista de Presentes - Chá de Ricardo e Beatriz</h1>
   <div>
     <h2>Escolha seu presente</h2>
     <div id="giftList">Carregando lista...</div>
   </div>
 
-  <script type="module">
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
-	
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
+      authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
+      databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
+      projectId: "cha-ricardo-e-beatriz",
+      storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
+      messagingSenderId: "317559238067",
+      appId: "1:317559238067:web:459dfacbb931420aadafc6"
+    };
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
-  authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
-  databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
-  projectId: "cha-ricardo-e-beatriz",
-  storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
-  messagingSenderId: "317559238067",
-  appId: "1:317559238067:web:459dfacbb931420aadafc6"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     const presentes = [
       "Balde retrátil + Prendedor de roupa",
       "Kit de Cabides Preto",
-	  "Cortina comprida branca 2,80 X 2,80",
-	  "Cortina comprida cinza 2,80 X 2,80",
-	  "Edredom de casal bege",
+      "Cortina comprida branca 2,80 X 2,80",
+      "Cortina comprida cinza 2,80 X 2,80",
+      "Edredom de casal bege",
       "Edredom de casal cinza",
-	  "Fronhas de algodão bege",
-	  "Fronhas de algodão cinza",
-	  "Jogo do de lençol casal em algodão",
-	  "Jogo do de lençol casal em algodão",
-	  "Manta de microfibra casal",
-	  "Manta para sofá em algodão",
-	  "Toalha de mesa de 6 lugares I", 
-	  "Toalha de mesa de 6 lugares II", 
-	  "Toalha de mesa de 6 lugares III", 
-	  "Jogo de travesseiro",
-	  "Balde",
-	  "Cesto de roupa branco", 
-	  "Bandeja",
- 	  "Faqueiro",
+      "Fronhas de algodão bege",
+      "Fronhas de algodão cinza",
+      "Jogo do de lençol casal em algodão",
+      "Manta de microfibra casal",
+      "Manta para sofá em algodão",
+      "Toalha de mesa de 6 lugares I",
+      "Toalha de mesa de 6 lugares II",
+      "Toalha de mesa de 6 lugares III",
+      "Jogo de travesseiro",
+      "Balde",
+      "Cesto de roupa branco",
+      "Bandeja",
+      "Faqueiro",
       "Escova de Sanitário",
       "Jogo de toalhas de banho + Rosto I",
       "Jogo de toalhas de banho + Rosto II",
@@ -190,18 +184,18 @@ const app = initializeApp(firebaseConfig);
       "Kit de Descanso de panela",
       "Tesoura para cozinha",
       "Jogo de Potes",
-	  "Pipoqueira",
-	  "Varal Mágico 1 Metro",
-	  "Jogo de Pano de Chão",
-	  "Garrafa de Água de Vidro",
+      "Pipoqueira",
+      "Varal Mágico 1 Metro",
+      "Jogo de Pano de Chão",
+      "Garrafa de Água de Vidro",
       "Pano de Prato"
     ];
 
     function carregarPresentes() {
       const container = document.getElementById("giftList");
-      const refPresentes = ref(db, "presentes");
+      const refPresentes = db.ref("presentes");
 
-      onValue(refPresentes, (snapshot) => {
+      refPresentes.on("value", (snapshot) => {
         const dados = snapshot.val() || {};
         container.innerHTML = "";
 
@@ -244,17 +238,8 @@ const app = initializeApp(firebaseConfig);
         return;
       }
 
-      const refPresente = ref(db, `presentes/${presente}`);
-      set(refPresente, { nome, entrega }).then(() => {
-        alert("Presente reservado com sucesso! Muito obrigado por contribuir com essa fase tão especial de nossas vidas!");
-
-        fetch("https://script.google.com/macros/s/AKfycbzLdK536veN7e9v3dWBxdBif-FZqqYHo-Z3je4oPSP9LbbnFD0Qx8Pj5x1smKJQO-ZTMw/exec", {
-          method: "POST",
-          body: JSON.stringify({ nome, entrega, presente }),
-          headers: { "Content-Type": "application/json" }
-        }).catch(error => {
-          console.error("Erro ao enviar para Google Sheets:", error);
-        });
+      db.ref(`presentes/${presente}`).set({ nome, entrega }).then(() => {
+        alert("Presente reservado com sucesso! Obrigado!");
       });
     };
 
@@ -263,4 +248,3 @@ const app = initializeApp(firebaseConfig);
 
 </body>
 </html>
-
