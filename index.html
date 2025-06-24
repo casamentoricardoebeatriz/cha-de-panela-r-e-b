@@ -74,20 +74,24 @@
 
   <script type="module">
 
-	import { initializeApp } from "firebase/app";
+	
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-	const firebaseConfig = {
-	apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
-	authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
-	databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
-	projectId: "cha-ricardo-e-beatriz",
-	storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
-	messagingSenderId: "317559238067",
-	appId: "1:317559238067:web:459dfacbb931420aadafc6"
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
+  authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
+  databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
+  projectId: "cha-ricardo-e-beatriz",
+  storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
+  messagingSenderId: "317559238067",
+  appId: "1:317559238067:web:459dfacbb931420aadafc6"
 };
 
-// Initialize Firebaseconst app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
     const presentes = [
       "Balde retrátil + Prendedor de roupa",
