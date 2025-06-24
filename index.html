@@ -3,7 +3,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Chá de Panela - Lista de Presentes</title>
+  <title>Chá de Panela Ricardo & Beatriz - Lista de Presentes</title>
   <style>
     body { font-family: sans-serif; background: #f0f8ff; padding: 20px; color: #333; }
     h1, h2 { color: #004080; }
@@ -65,7 +65,7 @@
   </style>
 </head>
 <body>
-  <h1>Lista de Presentes - Chá de Panela Matheus e Beatriz</h1>
+  <h1>Lista de Presentes - Chá de Panela: Ricardo & Beatriz</h1>
 
   <div>
     <h2>Escolha seu presente</h2>
@@ -73,21 +73,20 @@
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDxVxEa2ZxXQBwHBsy5Dgx2pbKqqIZtIvs",
-      authDomain: "cha-de-panela-matriz-12.firebaseapp.com",
-      databaseURL: "https://cha-de-panela-matriz-12-default-rtdb.firebaseio.com",
-      projectId: "cha-de-panela-matriz-12",
-      storageBucket: "cha-de-panela-matriz-12.firebasestorage.app",
-      messagingSenderId: "633110249607",
-      appId: "1:633110249607:web:245ca68d131a403528b822",
-      measurementId: "G-TGT6Q571H8"
-    };
+	import { initializeApp } from "firebase/app";
 
-    const app = initializeApp(firebaseConfig);
+	const firebaseConfig = {
+	apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
+	authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
+	databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
+	projectId: "cha-ricardo-e-beatriz",
+	storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
+	messagingSenderId: "317559238067",
+	appId: "1:317559238067:web:459dfacbb931420aadafc6"
+};
+
+// Initialize Firebaseconst app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
     const presentes = [
@@ -245,7 +244,7 @@
       set(refPresente, { nome, entrega }).then(() => {
         alert("Presente reservado com sucesso! Muito obrigado por contribuir com essa fase tão especial de nossas vidas!");
 
-        fetch("https://script.google.com/macros/s/AKfycbyLbHV_X75EiYTE9EhSxAusJn7A8jxsJVOdp4S1c3ugECV0_Etz2fie10giYhk1tDSz/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbzLdK536veN7e9v3dWBxdBif-FZqqYHo-Z3je4oPSP9LbbnFD0Qx8Pj5x1smKJQO-ZTMw/exec", {
           method: "POST",
           body: JSON.stringify({ nome, entrega, presente }),
           headers: { "Content-Type": "application/json" }
