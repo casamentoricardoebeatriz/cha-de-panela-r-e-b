@@ -74,8 +74,9 @@
 
   <script type="module">
 
-	import { initializeApp } from "firebase/app";
-
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+	import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+	
 	const firebaseConfig = {
 	apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
 	authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
@@ -87,7 +88,8 @@
 };
 
 // Initialize Firebaseconst app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+	const db = getDatabase(app);
 
     const presentes = [
       "Balde retrátil + Prendedor de roupa",
