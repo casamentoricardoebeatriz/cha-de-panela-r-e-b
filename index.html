@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Chá de Panela - Lista de Presentes</title>
+  <title>Chá de Panela Ricardo & Beatriz - Lista de Presentes</title>
   <style>
     body { font-family: sans-serif; background: #f0f8ff; padding: 20px; color: #333; }
     h1, h2 { color: #004080; }
@@ -64,61 +65,59 @@
   </style>
 </head>
 <body>
-  <h1>Lista de Presentes - Chá de Ricardo e Beatriz</h1>
+  <h1>Lista de Presentes - Chá de Panela: Ricardo & Beatriz</h1>
+
   <div>
     <h2>Escolha seu presente</h2>
     <div id="giftList">Carregando lista...</div>
   </div>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <script type="module">
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
-      authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
-      databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
-      projectId: "cha-ricardo-e-beatriz",
-      storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
-      messagingSenderId: "317559238067",
-      appId: "1:317559238067:web:459dfacbb931420aadafc6"
-    };
+	import { initializeApp } from "firebase/app";
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+	const firebaseConfig = {
+	apiKey: "AIzaSyDulfUNzpJlkRU5Cd5PQFg7jBiIMWpq8tM",
+	authDomain: "cha-ricardo-e-beatriz.firebaseapp.com",
+	databaseURL: "https://cha-ricardo-e-beatriz-default-rtdb.firebaseio.com",
+	projectId: "cha-ricardo-e-beatriz",
+	storageBucket: "cha-ricardo-e-beatriz.firebasestorage.app",
+	messagingSenderId: "317559238067",
+	appId: "1:317559238067:web:459dfacbb931420aadafc6"
+};
+
+// Initialize Firebaseconst app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
     const presentes = [
       "Balde retrátil + Prendedor de roupa",
       "Kit de Cabides Preto",
-      "Cortina comprida branca 2,80 X 2,80",
-      "Cortina comprida cinza 2,80 X 2,80",
-      "Edredom de casal bege",
+	  "Cortina comprida branca 2,80 X 2,80",
+	  "Cortina comprida cinza 2,80 X 2,80",
+	  "Edredom de casal branco",
       "Edredom de casal cinza",
-      "Fronhas de algodão bege",
-      "Fronhas de algodão cinza",
-      "Jogo do de lençol casal em algodão",
-      "Manta de microfibra casal",
-      "Manta para sofá em algodão",
-      "Toalha de mesa de 6 lugares I",
-      "Toalha de mesa de 6 lugares II",
-      "Toalha de mesa de 6 lugares III",
-      "Jogo de travesseiro",
-      "Balde",
-      "Cesto de roupa branco",
-      "Bandeja",
-      "Faqueiro",
+	  "Fronhas de algodão preta",
+	  "Fronhas de algodão branca",
+	  "Fronhas de algodão cinza",
+	  "Jogo de cama casal I",
+	  "Jogo de cama casal II",
+	  "Manta de microfibra casal",
+	  "Manta de microfibra casal",
+	  "Jogo de travesseiro",
+      "Jogo de almofada",
+	  "Balde",
+	  "Cesto de roupa branco", 
+	  "Bandeja",
+ 	  "Faqueiro",
       "Escova de Sanitário",
       "Jogo de toalhas de banho + Rosto I",
       "Jogo de toalhas de banho + Rosto II",
       "Jogo de toalhas de banho + Rosto III",
-      "Jogo de toalhas de banho + Rosto IV",
       "Lixeira INOX 3L",
-      "Mop Spray",
       "Tapete para banheiro",
+      "Tapete para cozinha",
       "Vassoura + Rodo",
       "Panos de Chão + Pá de lixo",
-      "Kit de banheiro vidro ou inox",
       "Abridor de latas + Pegador de salada",
       "Assadeira de vidro com tampa I",
       "Assadeira de vidro com tampa II",
@@ -133,6 +132,7 @@
       "Cuscuzeira",
       "Escorredor de arroz",
       "Forma para bolo redondo",
+      "Forma para bolo retangular",
       "Forma para pudim",
       "Frigideira antiaderente",
       "Garrafa térmica de café",
@@ -140,24 +140,23 @@
       "Jogo de assadeiras Marinex Opaline",
       "Jogo de copos vidro",
       "Jogo de facas",
-      "Jogo de panelas inox 3 peças",
-      "Jogo de panelas inox 2 peças",
+      "Jogo de panelas I",
+      "Jogo de panelas II",
       "Jogo de pratos fundos",
       "Jogo de pratos rasos",
       "Jogo de sobremesas",
-      "Jogo de tábuas de vidro",
       "Jogo de taças de sobremesa",
       "Jogo de taças de vidro",
       "Jogo de travessas de vidro",
       "Jogo de xícaras com pires",
       "Kit de utensílios de silicone",
-      "Kit tigelas Bowl porcelana",
+      "Kit tigelas Bowl",
       "Leiteira",
       "Luva para forno",
       "Mixer vertical",
       "Paliteiro + saleiro de vidro",
       "Panela de Pressão",
-      "Panela Wok Antiaderente com tampa",
+      "Panela elétrica",
       "Pano de prato + descascador de legumes",
       "Panquequeira Antiaderente",
       "Pegador de massas + Peneira",
@@ -167,7 +166,7 @@
       "Porta Frios Herméticos",
       "Porta temperos de vidro",
       "Potes herméticos",
-      "Queijeira + manteigueira francesa",
+      "Queijeira + manteigueira",
       "Ralador inox + colher de sorvete inox",
       "Saladeira",
       "Talheres em aço inox",
@@ -177,25 +176,27 @@
       "Funil + Esteira de jogo de mesa",
       "Rodo de pia",
       "Saca rolha - Tramontina",
+      "Abridor de lata",
       "Espremedor de alho",
       "Coador para filtro de papel",
       "Rolo de pastel",
-      "Fruteira de Vidro",
+      "Espremedor elétrico",
+      "Liquidificador",
+      "Torradeira",
+      "Sanduicheira",
       "Kit de Descanso de panela",
+      "Porta guardanapo",
+      "Porta papel toalha/aluminio/film",
       "Tesoura para cozinha",
       "Jogo de Potes",
-      "Pipoqueira",
-      "Varal Mágico 1 Metro",
-      "Jogo de Pano de Chão",
-      "Garrafa de Água de Vidro",
-      "Pano de Prato"
+      "Pano de Prato"
     ];
 
     function carregarPresentes() {
       const container = document.getElementById("giftList");
-      const refPresentes = db.ref("presentes");
+      const refPresentes = ref(db, "presentes");
 
-      refPresentes.on("value", (snapshot) => {
+      onValue(refPresentes, (snapshot) => {
         const dados = snapshot.val() || {};
         container.innerHTML = "";
 
@@ -238,8 +239,17 @@
         return;
       }
 
-      db.ref(`presentes/${presente}`).set({ nome, entrega }).then(() => {
-        alert("Presente reservado com sucesso! Obrigado!");
+      const refPresente = ref(db, `presentes/${presente}`);
+      set(refPresente, { nome, entrega }).then(() => {
+        alert("Presente reservado com sucesso! Muito obrigado por contribuir com essa fase tão especial de nossas vidas!");
+
+        fetch("https://script.google.com/macros/s/AKfycbzLdK536veN7e9v3dWBxdBif-FZqqYHo-Z3je4oPSP9LbbnFD0Qx8Pj5x1smKJQO-ZTMw/exec", {
+          method: "POST",
+          body: JSON.stringify({ nome, entrega, presente }),
+          headers: { "Content-Type": "application/json" }
+        }).catch(error => {
+          console.error("Erro ao enviar para Google Sheets:", error);
+        });
       });
     };
 
@@ -248,3 +258,4 @@
 
 </body>
 </html>
+
